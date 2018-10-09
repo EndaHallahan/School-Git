@@ -70,12 +70,12 @@
 <form name="form1" method="post" action="lab-self-posting-form.php">
   <p>
     <label for="lab_name">Name:</label>
-    <input type="text" name="lab_name" id="lab_name">
+    <input type="text" name="lab_name" id="lab_name" value="<?php if (!$valid_form) {echo $lab_name;} ?>">
     <span style="color:red;"> <?php echo $name_errMsg; ?> </span>
   </p>
   <p>
     <label for="lab_email">Email:</label>
-    <input type="text" name="lab_email" id="lab_email">
+    <input type="text" name="lab_email" id="lab_email" value="<?php if (!$valid_form) {echo $lab_email;} ?>">
     <span style="color:red;"> <?php echo $email_errMsg; ?> </span>
   </p>
   <p> 
