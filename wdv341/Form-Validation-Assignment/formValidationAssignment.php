@@ -32,12 +32,12 @@
 			$form_valid = false;
 		}
 
-		if (!$validator->isPhone($cust_phone)) {
+		if (!$validator->isPhone($cust_phone) && $validator->notEmpty($cust_phone)) {
 			$phone_error = "Invalid phone number";
 			$form_valid = false;
 		}
 
-		if (!$validator->isEmail($cust_email)) {
+		if (!$validator->isEmail($cust_email) && $validator->notEmpty($cust_email)) {
 			$email_error = "Invalid email address";
 			$form_valid = false;
 		}

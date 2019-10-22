@@ -3,7 +3,7 @@
 class Validator {
 
 	public function notEmpty($input) {
-		return (!empty($input));
+		return (!empty(trim($input)));
 	}
 
 	public function isNumeric($input) {
@@ -19,11 +19,11 @@ class Validator {
 	}
 
 	public function isPhone($input) {
-		return (!preg_match("/\D/", $input) && strlen($input) === 10 || !strlen($input));
+		return (!preg_match("/\D/", $input) && strlen($input) === 10);
 	}
 
 	public function isEmail($input) {
-		return (filter_var($input, FILTER_VALIDATE_EMAIL) || !strlen($input));
+		return (filter_var($input, FILTER_VALIDATE_EMAIL));
 	}
 }
 
