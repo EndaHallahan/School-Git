@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.select-movie {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 55vh;
+}
+
+.movie-previews {
+    width: 250%;
+    height: 35vh;
+    overflow-x: scroll;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    background: rgb(38, 38, 38);
+    background: linear-gradient(180deg, rgb(38, 38, 38) 0%, rgba(80,80,80,1) 42%, rgba(0,212,255,0) 100%);
+}
+
+.preview-button {
+    width: fit-content;
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 10px;
+}
+
+.preview-button p {
+    color: white;
+}
+
+.preview-button img {
+    padding: 10px;
+}
+
+.close-button {
+    height: 1rem;
+}
+
+.movie-information {
+    height: 65vh;
+    left: 13%;
+    width: 75%;
+    position: fixed;
+    padding: 30px 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.movie-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.movie-text p {
+    flex: 2;
+}
+
+.movie-text .movie-title {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.poster-image {
+    flex: 1;
+    margin: 0 20px;
+}
+
