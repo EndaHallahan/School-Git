@@ -21,6 +21,16 @@
 	catch(PDOException $e) {
     	echo "Error: " . $e->getMessage();
     }	
+
+    $errorMsg = "";
+    if ($_GET) {
+    	$error = $_GET["error"] || "";
+	    if ($error == "404") {
+	    	$errorMsg = "Could not delete record; record does not exist.";
+	    } else if ($error == "500") {
+	    	$errorMsg = "Internal error; please try again.";
+	    }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +61,7 @@
 				    		<td><?php echo $row->event_presenter ?></td>
 				    		<td><?php echo $row->event_date ?></td>
 				    		<td><?php echo $row->event_time ?></td>
+				    		<td><a href="deleteEvent.php?eventid=<?php echo $row->event_id ?>">Delete</a></td>
 				    	</tr>
 			<?php
 				  	} 
@@ -58,6 +69,7 @@
 					echo "</table><p>Select failed!</p>";
 				}
 			?>
+			<p><?php echo $errorMsg ?></p>
 	</table>
 	</body>
 </html>
