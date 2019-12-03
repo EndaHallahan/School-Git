@@ -1,4 +1,9 @@
 <?php
+	session_start();
+	if (!session_status() == PHP_SESSION_ACTIVE || !isset($_SESSION["validUser"])) {
+		header('Location: ' . "login.php", true, 303);
+	}
+
 	include "pdoConnect.php";
 
 	$result = false;
