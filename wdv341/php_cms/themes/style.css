@@ -1,0 +1,213 @@
+body {
+	font: 1.2rem "Times New Roman", serif;
+}
+
+main {
+	min-height: calc(100vh - 19rem);
+	max-width:80%;
+	margin:auto auto 6rem auto;
+	font: 1.1rem Georgia, serif;
+}
+
+main p {
+	line-height: 1.5;
+}
+
+.nav {
+	list-style-type: none;
+	padding-left:1rem;
+}
+
+.nav li{
+	display:inline;
+	float:left;
+}
+
+.nav li.right{
+	float:right;
+}
+
+.nav a{
+	display:block;
+	text-align:center;
+	text-decoration:none;
+	margin:0 .5rem;
+	position:relative;
+	top:-.4rem;	
+}
+
+.shrinkable::before {
+	content: attr(data-shrink);
+}
+
+footer{
+	text-align:center;
+	font-size:.8rem;
+	height:1rem;
+}
+
+header {
+	margin-left:1rem;
+}
+
+h1, h2, h3, .nav {
+	font-family: "Times New Roman", serif;
+}
+
+h1 a {
+	text-decoration:none;
+}
+
+h3 {
+	text-align:center;
+}
+
+hr {
+	border:none;
+	border-top:1px solid;
+	height:2px;
+	border-color:inherit;
+	background-color:inherit;
+	color:inherit;
+}
+
+dt {
+	font: bold 1.4rem "Times New Roman", serif;
+	margin-top:1.2rem;
+}
+
+a {
+	color:inherit;
+	cursor: pointer;
+	text-align:center;
+	text-decoration:none;
+}
+
+a:before {
+	content:"[";
+}
+
+a:after {
+	content:"]";
+}
+
+a:visited {
+	color:inherit;
+}
+
+a:hover {
+	color:orange;
+}
+
+pre {
+	border-left:5px double;
+	border-right:5px double;
+	border-top: 1px dashed;
+	border-bottom:1px dashed;
+	border-color:inherit;
+	padding: 5px 0 5px 1rem;
+	white-space:pre-wrap;
+	tab-size:4;
+	-moz-tab-size:4;
+	-o-tab-size:4;
+}
+
+code {
+	border-left:2px solid;
+	border-right:2px solid;
+	border-bottom:1px dashed;
+	border-top:1px dashed;
+	border-color:inherit;
+	padding:0 2px;
+}
+
+.right {
+	float: right;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 100px inherit inset;
+    -webkit-text-fill-color: inherit;
+}
+
+input[type=text], input[type=password], input[type=email], textarea {	
+	appearance: none;
+	-webkit-appearance: none;
+	background-color: inherit;
+	color: inherit;
+	border: none;
+	border-radius: 0;
+	font: 1.2rem monospace;
+}
+
+input[type=submit], input[type=button], button {
+	appearance: none;
+	-webkit-appearance: none;
+	background-color: inherit;
+	color: inherit;
+	border: none;
+	border-radius: 0;
+	cursor: pointer;
+	font: 1.2rem "Times New Roman", serif;
+	margin: 0;
+}
+
+input[type=submit]:hover, input[type=button]:hover, button:hover {
+	color:orange;
+}
+
+input:focus {
+	outline: none;
+}
+
+textarea {
+	border-left:2px solid;
+	border-right:2px solid;
+	border-bottom:1px dashed;
+	border-top:1px dashed;
+	border-color:inherit;
+	width: 100%;
+	min-height: 20rem;
+}
+
+textarea.description {
+	min-height: 10rem;
+}
+
+label {
+	display: block;
+	margin-bottom: 1rem;
+}
+
+table {
+	border-left:2px solid;
+	border-right:2px solid;
+	border-bottom:1px dashed;
+	border-top:1px dashed;
+	border-color:inherit;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th, td {
+	border-left:2px solid;
+	border-right:2px solid;
+	border-bottom:1px dashed;
+	border-top:1px dashed;
+	border-color:inherit;
+	padding: .3rem;
+	text-align: center;
+}
+
+caption {
+	font-size: 1.5rem;
+}
+
+@media only screen and (min-width: 500px) {
+  	.shrinkable::before {
+		content: attr(data-unshrink);
+	}
+}

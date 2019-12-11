@@ -1,0 +1,25 @@
+body {
+	color: rgb(190,190,190);
+	background-color: black;
+}
+
+a:hover {
+	color:white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 100px rgb(190,190,190) inset;
+    -webkit-text-fill-color: black;
+}
+
+input[type=text], input[type=password], input[type=email] {	
+	background-color: rgb(190,190,190);
+	color: black;
+}
+
+textarea {
+	border-color: rgb(190,190,190);
+}
