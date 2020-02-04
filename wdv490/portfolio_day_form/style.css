@@ -1,0 +1,22 @@
+section { 
+	width: 80%;
+	max-width: 40rem;
+	margin: 0 auto;
+	display: grid;
+	font-size: 1.2rem;
+}
+
+label {
+	display: block;
+	margin: .5rem;
+}
+
+input[type="text"], textarea {
+	width: 100%;
+	max-width: 40rem;
+	display: block;
+}
+
+div.photo-container img {
+	max-width: 360px;
+}
