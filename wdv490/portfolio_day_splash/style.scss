@@ -1,0 +1,102 @@
+$gold: #ac974b;
+
+@font-face {
+  font-family: bobo;
+  src: url(bobo.otf);
+}
+
+body {
+	display: block;
+	width: 100vw;
+}
+
+img {
+	width: 60%;
+	display: block;
+	margin: 0 auto;
+	max-width: 25rem;
+	position: absolute;
+	z-index: 500;
+   	left: 50%;
+   	transform: translateX(-50%);
+   	top: 1rem;
+}
+
+.logo-container {
+	box-sizing: border-box;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	height: 100%;
+	max-height: 90vh;
+	width: 80%;
+	margin: 9rem auto;
+	justify-items: center;
+	align-items: center;
+	max-width: 30rem;
+	color: #{$gold};
+	position: absolute;
+   	left: 50%;
+   	transform: translateX(-50%);
+
+	border: solid;
+	border-image: url(STD_splash.svg);
+	border-image-slice: 80 50 80 50;
+	border-image-width: 50 30 50 30;
+	border-image-outset: 9rem 4rem 3rem 4rem; 
+
+	.logo-square {
+		font-family: bobo;
+		font-size: 20vh; //fallback
+		font-size: calc(min(20vh, 20vw));
+		transition: transform 1.6s;
+		transition-timing-function: ease;
+		text-align: center;
+		line-height: 20vh; //fallback
+	  	line-height: calc(min(20vh, 30vw));
+	  	opacity: 0;
+	}
+}
+
+@keyframes fadeIn {
+	0% {opacity: 0;}
+	100% {opacity:1;}
+}
+
+@for $i from 1 through 12 {
+	.logo-square:nth-child(#{$i}) {
+		animation: fadeIn #{$i * 3/5}s ease .5s 1 forwards;
+	}
+}
+
+.logo-twisted-90 {
+	transform: rotateZ(90deg);
+}
+.logo-twisted-r90 {
+	transform: rotateZ(-90deg);
+}
+.logo-flipped-y {
+	transform: rotateY(180deg);
+}
+.logo-flipped-x {
+	transform: rotateX(180deg);
+}
+
+.info {
+	grid-column: 1 / span 3;
+	text-align: center;
+	font-family: bobo;
+}
+
+@media only screen and (max-width: 450px) {
+	img {
+		width: 90vw;
+		border-bottom: 5px double #{$gold};
+	}
+
+	.logo-container {
+		border-top: none;
+		border-right: none;
+		border-left: none;
+		margin-top: 7rem;
+	}
+}

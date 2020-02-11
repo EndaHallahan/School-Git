@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang = "en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Effect Demo</title>
+		<style>
+			.garbled {
+				font-family: monospace;
+			}
+			.hidden {
+				visibility: hidden;
+			}
+		</style>
+		<script src="script.js"></script>
+	</head>
+	<body>
+		<h1>Text Garbler</h1>
+		<h4>Goal: create an effect that looks like a piece of text is being rapidly deciphered from an "encrypted" (garbled) string. Make it interactable through click or hover.</h4>
+		<hr>
+
+		<p>Attempt number three eschews random indexes in favor of a random <i>order</i>. It creates an array 0..n-1 where n is the length of the input string. This array is then shuffled using the Knuth algorithm. On each animation frame, the text is re-garbled, and then the last element in the array is removed and the corresponding index in the string is fixed. This removes the need for a maximum time duration.</p>
+		<h3>Full Garble 3:</h3>
+		<h1 class="garbled hidden" data-garble-type="one-garble-three">Header Text</h1>
+
+		<h3>Hover Garble 3:</h3>
+		<h1 class="garbled hidden" data-garble-type="hover-garble-three">Header Text</h1>
+
+	</body>
+</html>
