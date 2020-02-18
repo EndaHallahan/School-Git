@@ -30,7 +30,7 @@
 				|| !preg_match("/@dmacc.edu$/", $email)
 			) {
 			$formValid = false;
-			$formError = "Please enter a valid email.";
+			$formError = "Please enter a valid DMACC email.";
 		} 
 		if (!$validator->notEmpty($password) 
 				|| !$validator->noSpecialChars($password) 
@@ -93,7 +93,7 @@
 				|| !preg_match("/@dmacc.edu$/", $email)
 			) {
 			$formValid = false;
-			$formError = "Please enter a valid email.";
+			$formError = "Please enter a valid DMACC email.";
 		} 
 		if (!$validator->notEmpty($password) 
 				|| !$validator->noSpecialChars($password)
@@ -158,7 +158,7 @@
 				<h3>Log In</h3>
 				<p>If you have already registered your credentials and want to make changes to your information, enter them in the form below.</p>
 				<form name="login_form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-					<label>Email
+					<label>DMACC Email
 						<input type="email" name="email" id="email" required data-v_length_lt="50" data-v_is-email data-v_is-dmacc>
 					</label>
 					<label>Password
@@ -171,7 +171,7 @@
 				<h3>Register</h3>
 				<p>If you have not yet registered your credentials, do so in the form below. Use your DMACC email address. You will also need to provide your class passkey, which should have been given to you by your instructor.</p>
 				<form name="create_entry_form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-					<label>Email
+					<label>DMACC Email
 						<input type="email" name="email" required data-v_length_lt="50" data-v_is-email data-v_is-dmacc>
 					</label>
 					<label>Password
