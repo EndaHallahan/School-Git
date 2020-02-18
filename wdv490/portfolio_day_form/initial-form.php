@@ -24,11 +24,17 @@
 			$formValid = false;
 			$formError = "Please enter a passkey.";
 		}
-		if (!$validator->notEmpty($email) || !$validator->isEmail($email)) {
+		if (!$validator->notEmpty($email) 
+				|| !$validator->isEmail($email)
+				|| !$validator->isShorterThan($email, 50)
+			) {
 			$formValid = false;
 			$formError = "Please enter a valid email.";
 		} 
-		if (!$validator->notEmpty($password) || !$validator->noSpecialChars($password)) {
+		if (!$validator->notEmpty($password) 
+				|| !$validator->noSpecialChars($password) 
+				|| !$validator->isLongerThan($password, 6)
+			) {
 			$formValid = false;
 			$formError = "Please enter a valid password.";
 		}
@@ -76,11 +82,17 @@
 		$validator = new Validator;
 
 		// Validations
-		if (!$validator->notEmpty($email) || !$validator->isEmail($email)) {
+		if (!$validator->notEmpty($email) 
+				|| !$validator->isEmail($email)
+				|| !$validator->isShorterThan($email, 50)
+			) {
 			$formValid = false;
 			$formError = "Please enter a valid email.";
 		} 
-		if (!$validator->notEmpty($password) || !$validator->noSpecialChars($password)) {
+		if (!$validator->notEmpty($password) 
+				|| !$validator->noSpecialChars($password)
+				|| !$validator->isLongerThan($password, 6)
+			) {
 			$formValid = false;
 			$formError = "Please enter a valid password.";
 		}
@@ -131,6 +143,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Registration</title>
 		<link rel="stylesheet" href="style.css" type="text/css">
+		<script src="scripts.js"></script>
 	</head>
 	<body>
 		<section>
@@ -139,10 +152,10 @@
 				<p>If you have already registered your credentials and want to make changes to your information, enter them in the form below.</p>
 				<form name="login_form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 					<label>Email
-						<input type="text" name="email" id="email">
+						<input type="email" name="email" id="email" required data-v_length_lt="50" data-v_is-email data-v_is-dmacc>
 					</label>
 					<label>Password
-						<input type="text" name="password" id="password">
+						<input type="password" name="password" id="password" required data-v_length-gt="6">
 					</label>
 					<input type="submit" name="login_submit" id="login_submit" value="Submit">
 				</form>
@@ -152,18 +165,18 @@
 				<p>If you have not yet registered your credentials, do so in the form below. Use your DMACC email address. You will also need to provide your class passkey, which should have been given to you by your instructor.</p>
 				<form name="create_entry_form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 					<label>Email
-						<input type="text" name="email" id="email">
+						<input type="email" name="email" required data-v_length_lt="50" data-v_is-email data-v_is-dmacc>
 					</label>
 					<label>Password
-						<input type="text" name="password" id="password">
+						<input type="password" name="password" required data-v_length_gt="6">
 					</label>
 					<label>Class Passkey
-						<input type="text" name="passkey" id="passkey">
+						<input type="text" name="passkey" id="passkey" required>
 					</label>
 					<input type="submit" name="register_submit" id="register_submit" value="Submit">
 				</form>
 			</div>
-			<p class="errorOut"><?php echo $formError ?></p>
+			<p class="info-display faliure"><?php echo $formError ?></p>
 		</section>
 	</body>
 </html>

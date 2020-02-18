@@ -11,12 +11,57 @@ label {
 	margin: .5rem;
 }
 
-input[type="text"], textarea {
+label.required::before {
+	content: "*";
+	color: red;
+}
+
+input[type="text"], input[type="email"], input[type="password"], textarea {
 	width: 100%;
 	max-width: 40rem;
 	display: block;
 }
 
-div.photo-container img {
-	max-width: 360px;
+textarea {
+	min-height: 5rem;
+}
+
+input[type="submit"] {
+	min-height: 2rem;
+	min-width: 5rem;
+	font-size: 1rem;
+	cursor: pointer;
+	float: right;
+}
+
+label[data-v_char-counter] {
+	position: relative;
+}
+
+label[data-v_char-counter]:focus-within::after { 
+	content: attr(data-v_char-counter);
+	font-size: 1rem;
+	color: slategray;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.info-display {
+	display: none;
+}
+
+.info-display:not(:empty) {
+	display: block;
+	color: white;
+	border-radius: 1rem;
+	padding: 2rem;
+}
+
+.info-display.faliure:not(:empty) {
+	background-color: darkred;
+}
+
+.info-display.success:not(:empty) {
+	background-color: darkgreen;
 }

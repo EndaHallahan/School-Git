@@ -8,9 +8,10 @@
 	include "connectPDO.php";
 
 	$email = $_SESSION['userEmail'];
+	$publicEmail = "";
 	$firstName = "";
 	$lastName = "";
-	$major = "";
+	$program = "";
 	$portfolio = "";
 	$linkedin = "";
 	$secondary = "";
@@ -18,14 +19,11 @@
 	$careerGoals = "";
 	$hobbies = "";
 	$state = "";
-	$minor = "";
-	$image = "";
+	$emphasis = "";
 
 	$formValid = true;
 	$formError = "";
 	$updateSuccess = false;
-
-	$imageDir = "student_images/";
 
 	$result = false;
 
@@ -35,7 +33,7 @@
 			SELECT 
 				student_first_name, 
 				student_last_name,
-				student_major,
+				student_program,
 				student_portfolio,
 				student_linkedin,
 				student_secondary,
@@ -43,8 +41,8 @@
 				student_career_goals,
 				student_hobbies,
 				student_state,
-				student_minor,
-				student_image
+				student_emphasis,
+				student_public_email
 			FROM
 				student_info_2020
 			WHERE
@@ -61,7 +59,7 @@
 
 		$firstName = $row->student_first_name;
 		$lastName = $row->student_last_name;
-		$major = $row->student_major;
+		$program = $row->student_program;
 		$portfolio = $row->student_portfolio;
 		$linkedin = $row->student_linkedin;
 		$secondary = $row->student_secondary;
@@ -69,8 +67,8 @@
 		$state = $row->student_state;
 		$careerGoals = $row->student_career_goals;
 		$hobbies = $row->student_hobbies;
-		$minor = $row->student_minor;
-		$image = $row->student_image;
+		$emphasis = $row->student_emphasis;
+		$publicEmail = $row->student_public_email;
 	}
 
 	// Form submit POST
@@ -82,106 +80,82 @@
 		//Validations
 		if (isset($_POST['first-name']) && $validator->notEmpty($_POST['first-name'])) {
 			$firstName = $_POST['first-name'];
-			if (!$validator->noSpecialChars($firstName)) {
+			if (!$validator->noSpecialChars($firstName) || !$validator->isShorterThan($firstName, 50)) {
 				$formValid = false;
-				$formError = "Please enter a valid first name. Forbidden characters: &\"'<>";
+				$formError = "Please enter a valid first name. Forbidden characters: &<>";
 			}
 		}
 		if (isset($_POST['last-name']) && $validator->notEmpty($_POST['last-name'])) {
 			$lastName = $_POST['last-name'];
-			if (!$validator->noSpecialChars($lastName)) {
+			if (!$validator->noSpecialChars($lastName) || !$validator->isShorterThan($lastName, 50)) {
 				$formValid = false;
-				$formError = "Please enter a valid last name. Forbidden characters: &\"'<>";
+				$formError = "Please enter a valid last name. Forbidden characters: &<>";
 			}
 		}
-		if (isset($_POST['major']) && $validator->notEmpty($_POST['major'])) {
-			$major = $_POST['major'];
+		if (isset($_POST['program']) && $validator->notEmpty($_POST['program'])) {
+			$program = $_POST['program'];
 		}
 		if (isset($_POST['portfolio-link']) && $validator->notEmpty($_POST['portfolio-link'])) {
 			$portfolio = $_POST['portfolio-link'];
-			if (!$validator->isURL($portfolio)) {
+			if (!$validator->isURL($portfolio) || !$validator->isShorterThan($portfolio, 50)) {
 				$formValid = false;
 				$formError = "Please enter a valid link to your portfolio.";
 			}
 		}
 		if (isset($_POST['linkedin-link']) && $validator->notEmpty($_POST['linkedin-link'])) {
 			$linkedin = $_POST['linkedin-link'];
-			if (!$validator->isURL($linkedin)) {
+			if (!$validator->isURL($linkedin) || !$validator->isShorterThan($portfolio, 50)) {
 				$formValid = false;
 				$formError = "Please enter a valid link to your LinkedIn account.";
 			}
 		}
 		if (isset($_POST['secondary-link']) && $validator->notEmpty($_POST['secondary-link'])) {
 			$secondary = $_POST['secondary-link'];
-			if (!$validator->isURL($secondary)) {
+			if (!$validator->isURL($secondary) || !$validator->isShorterThan($secondary, 50)) {
 				$formValid = false;
 				$formError = "Please enter a valid link to your additional website.";
 			}
 		}
 		if (isset($_POST['hometown']) && $validator->notEmpty($_POST['hometown'])) {
 			$hometown = $_POST['hometown'];
-			if (!$validator->noSpecialChars($hometown)) {
+			if (!$validator->noSpecialChars($hometown) || !$validator->isShorterThan($hometown, 50)) {
 				$formValid = false;
-				$formError = "Please enter a valid hometown. Forbidden characters: &\"'<>";
+				$formError = "Please enter a valid hometown. Forbidden characters: &<>";
 			}
 		}
 		if (isset($_POST['career-goals']) && $validator->notEmpty($_POST['career-goals'])) {
 			$careerGoals = $_POST['career-goals'];
-			if (!$validator->noSpecialChars($careerGoals)) {
+			if (!$validator->noSpecialChars($careerGoals) || !$validator->isShorterThan($careerGoals, 255)) {
 				$formValid = false;
-				$formError = "Please enter a valid career goal. Forbidden characters: &\"'<>";
+				$formError = "Please enter a valid career goal. Forbidden characters: &<>";
 			}
 		}
 		if (isset($_POST['hobbies']) && $validator->notEmpty($_POST['hobbies'])) {
 			$hobbies = $_POST['hobbies'];
-			if (!$validator->noSpecialChars($hobbies)) {
+			if (!$validator->noSpecialChars($hobbies) || !$validator->isShorterThan($hobbies, 255)) {
 				$formValid = false;
-				$formError = "Please enter a valid hobby. Forbidden characters: &\"'<>";
+				$formError = "Please enter a valid hobby. Forbidden characters: &<>";
 			}
 		}
 		if (isset($_POST['state']) && $validator->notEmpty($_POST['state'])) {
 			$state = $_POST['state'];
-			if (!$validator->noSpecialChars($state)) {
+		}
+		if (isset($_POST['emphasis']) && $validator->notEmpty($_POST['emphasis'])) {
+			$emphasis = $_POST['emphasis'];
+			if (!$validator->noSpecialChars($emphasis) || !$validator->isShorterThan($emphasis, 50)) {
 				$formValid = false;
-				$formError = "Please enter a valid state. Forbidden characters: &\"'<>";
+				$formError = "Please enter a valid emphasis. Forbidden characters: &<>";
 			}
 		}
-		if (isset($_POST['minor']) && $validator->notEmpty($_POST['minor'])) {
-			$minor = $_POST['minor'];
-			if (!$validator->noSpecialChars($minor)) {
+		if (isset($_POST['public-email']) && $validator->notEmpty($_POST['public-email'])) {
+			$publicEmail = $_POST['public-email'];
+			if (!$validator->noSpecialChars($publicEmail) 
+					|| !$validator->isShorterThan($publicEmail, 50)
+					|| !$validator->isEmail($publicEmail)
+				) {
 				$formValid = false;
-				$formError = "Please enter a valid minor. Forbidden characters: &\"'<>";
+				$formError = "Please enter a valid public email address.";
 			}
-		}
-		if ($_FILES['image']['size'] != 0) {
-			$fileName = uniqid() . "-" . $_FILES['image']['name'];
-			$fileTmp = $_FILES['image']['tmp_name'];
-			$fileSize = $_FILES['image']['size'];
-      
-		    if (!exif_imagetype($fileTmp)){
-		       	$formValid = false;
-				$formError = "Please upload a valid image file.";
-		    }
-		    if ($fileSize > 2097152 * 2){
-		       	$formValid = false;
-				$formError = "Images must be under 4MB.";
-		    }
-
-		    if ($formValid) {
-		    	// Delete previous image if any
-		    	if ($validator->notEmpty($image) && file_exists($imageDir . $image)) {
-					if (!unlink($imageDir . $image)) {
-						$formError = "Warning: failed to delete previous image.";
-					}
-				}
-				// Save image to directory
-		    	if (move_uploaded_file($fileTmp, $imageDir . $fileName)) {
-		        	$image = $fileName;
-			    } else {
-			        $formValid = false;
-					$formError = "There was an error uploading this image. Please try again.";
-			    }
-		    }
 		}
 
 		// Update record in database
@@ -193,7 +167,7 @@
 					SET
 						student_first_name = ?,
 						student_last_name = ?,
-						student_major = ?,
+						student_program = ?,
 						student_portfolio = ?,
 						student_linkedin = ?,
 						student_secondary = ?,
@@ -201,14 +175,14 @@
 						student_career_goals = ?,
 						student_hobbies = ?,
 						student_state = ?,
-						student_minor = ?,
-						student_image = ?
+						student_emphasis = ?,
+						student_public_email = ?
 					WHERE
 						student_email = ?
 				");
 				$stmt->bindParam(1, $firstName);
 				$stmt->bindParam(2, $lastName);
-				$stmt->bindParam(3, $major);
+				$stmt->bindParam(3, $program);
 				$stmt->bindParam(4, $portfolio);
 				$stmt->bindParam(5, $linkedin);
 				$stmt->bindParam(6, $secondary);
@@ -216,8 +190,8 @@
 				$stmt->bindParam(8, $careerGoals);
 				$stmt->bindParam(9, $hobbies);
 				$stmt->bindParam(10, $state);
-				$stmt->bindParam(11, $minor);
-				$stmt->bindParam(12, $image);
+				$stmt->bindParam(11, $emphasis);
+				$stmt->bindParam(12, $publicEmail);
 				$stmt->bindParam(13, $email);
 				$result = $stmt->execute();
 
@@ -237,67 +211,79 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Student Information Form</title>
 		<link rel="stylesheet" href="style.css" type="text/css">
+		<script src="scripts.js"></script>
 	</head>
 	<body>
 		<section>
 			<a href="logout.php">Log Out</a>
-			<p class="errorOut"><?php echo $formError ?> <?php echo $updateSuccess ? "Your information has been updated." : "" ?></p>
+			<p class="info-display <?php echo $updateSuccess ? "success" : "faliure" ?>"><?php echo $formError ?><?php echo $updateSuccess ? "Your information has been updated." : "" ?></p>
 			<form name="info_form" method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-				<label>First Name
-					<input type="text" name="first-name" id="first-name" value="<?php echo $firstName ?>" required>
+				<label class="required">First Name
+					<input type="text" name="first-name" id="first-name" value="<?php echo $firstName ?>" required data-v_length-lt="50">
 				</label>
-				<label>Last Name
-					<input type="text" name="last-name" id="last-name" value="<?php echo $lastName ?>" required>
-				</label>
-
-				<label>Email
-					<input type="text" name="email" id="email" disabled value="<?php echo $email ?>">
+				<label class="required">Last Name
+					<input type="text" name="last-name" id="last-name" value="<?php echo $lastName ?>" required data-v_length-lt="50">
 				</label>
 
-				<label>Portrait Photo
-					<input type="file" accept="image/*" name="image" id="image">
-				</label>
-				<div class="photo-container">
-					<img src="<?php echo $imageDir . $image ?>">
-				</div>
-
-				<label>Major
-					<select name="major" id="major">
-						<option value="graphic-design" <?php if ($major == "graphic-design") {echo "selected";} ?> >Graphic Design</option>
-						<option value="photography" <?php if ($major == "photography") {echo "selected";} ?> >Photography</option>
-						<option value="video-production" <?php if ($major == "video-production") {echo "selected";} ?> >Video Production</option>
-						<option value="animation" <?php if ($major == "animation") {echo "selected";} ?> >Animation</option>
-						<option value="web-dev" <?php if ($major == "web-dev") {echo "selected";} ?> >Web Development</option>
+				<label class="required">Program
+					<select name="program" id="program" required>
+						<option value="">--Select a Program--</option>
+						<option value="graphic-design" <?php if ($program == "graphic-design") {echo "selected";} ?> >Graphic Design</option>
+						<option value="photography" <?php if ($program == "photography") {echo "selected";} ?> >Photography</option>
+						<option value="video-production" <?php if ($program == "video-production") {echo "selected";} ?> >Video Production</option>
+						<option value="animation" <?php if ($program == "animation") {echo "selected";} ?> >Animation</option>
+						<option value="web-dev" <?php if ($program == "web-dev") {echo "selected";} ?> >Web Development</option>
 					</select>
 				</label>
-				<label>Minor
-					<input type="text" name="minor" id="minor" value="<?php echo $minor ?>">
+				<label>Area of emphasis, or secondary program
+					<input type="text" name="emphasis" id="emphasis" value="<?php echo $emphasis ?>" data-v_length-lt="50">
+				</label>
+
+				<label>DMACC Email
+					<input type="email" name="email" id="email" disabled value="<?php echo $email ?>">
+				</label>
+				<label>Public email (will be displayed publically on the website)
+					<input type="email" name="public-email" id="public-email" value="<?php echo $publicEmail ?>" data-v_length-lt="50" data-v_isEmail>
 				</label>
 
 				<label>Portfolio Website
-					<input type="text" name="portfolio-link" id="portfolio-link" value="<?php echo $portfolio ?>">
+					<input type="text" name="portfolio-link" id="portfolio-link" value="<?php echo $portfolio ?>" data-v_length-lt="50" data-v_is-url>
 				</label>
 				<label>LinkedIn
-					<input type="text" name="linkedin-link" id="linkedin-link" value="<?php echo $linkedin ?>">
+					<input type="text" name="linkedin-link" id="linkedin-link" value="<?php echo $linkedin ?>" data-v_length-lt="50" data-v_is-url data-v_is-linkedin>
 				</label>
-				<label>Additional Website (optional)
-					<input type="text" name="secondary-link" id="secondary-link" value="<?php echo $secondary ?>">
+				<label>Additional Website
+					<input type="text" name="secondary-link" id="secondary-link" value="<?php echo $secondary ?>" data-v_length-lt="50" data-v_is-url>
 				</label>
 
 				<label>Hometown
-					<input type="text" name="hometown" id="hometown" value="<?php echo $hometown ?>">
+					<input type="text" name="hometown" id="hometown" value="<?php echo $hometown ?>" data-v_length-lt="50">
 				</label>
 				<label>State
-					<input type="text" name="state" id="state" value="<?php echo $state ?>">
+					<select name="state" id="state">
+						<?php 
+							$states = array("IA", "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC",  
+										    "DE", "FL", "GA", "HI", "ID", "IL", "IN", "KS", "KY", "LA",  
+										    "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE",  
+										    "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC",  
+										    "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY");
+							forEach ($states as $value) { 
+						?>
+							<option value="<?php echo $value;?>" <?php echo ($state == $value) ? " selected='selected'" : "";?>><?php echo $value;?></option>
+						<?php
+							}
+						?>
+					</select>
 				</label>
 
-				<label>Career Goals
-					<textarea name="career-goals" id="career-goals"><?php echo $careerGoals ?></textarea>
+				<label data-v_char-counter>Career Goals
+					<textarea name="career-goals" id="career-goals" maxlength="255"><?php echo $careerGoals ?></textarea>
 				</label>
-				<label>Hobbies
-					<textarea name="hobbies" id="hobbies"><?php echo $hobbies ?></textarea>
+				<label data-v_char-counter>Hobbies
+					<textarea name="hobbies" id="hobbies" maxlength="255"><?php echo $hobbies ?></textarea>
 				</label>
 
+				<label class="required">Required</label>
 				<input type="submit" name="info_submit" id="info_submit" value="Submit">
 			</form>
 		</section>

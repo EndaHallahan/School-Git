@@ -10,12 +10,16 @@ class Validator {
 		return (is_numeric($input));
 	}
 
-	public function isLessThanCharacters($input, $limit) {
+	public function isShorterThan($input, $limit) {
 		return (strlen($input) <= $limit);
 	}
 
+	public function isLongerThan($input, $limit) {
+		return (strlen($input) > $limit);
+	}
+
 	public function noSpecialChars($input) {
-		return (!boolval(strpbrk($input, "&\"'<>")) || !strlen($input));
+		return (!boolval(strpbrk($input, "&<>")) || !strlen($input));
 	}
 
 	public function isPhone($input) {
