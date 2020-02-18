@@ -27,6 +27,7 @@
 		if (!$validator->notEmpty($email) 
 				|| !$validator->isEmail($email)
 				|| !$validator->isShorterThan($email, 50)
+				|| !preg_match("/@dmacc.edu$/", $email)
 			) {
 			$formValid = false;
 			$formError = "Please enter a valid email.";
@@ -89,6 +90,7 @@
 		if (!$validator->notEmpty($email) 
 				|| !$validator->isEmail($email)
 				|| !$validator->isShorterThan($email, 50)
+				|| !preg_match("/@dmacc.edu$/", $email)
 			) {
 			$formValid = false;
 			$formError = "Please enter a valid email.";
