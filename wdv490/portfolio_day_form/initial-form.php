@@ -58,7 +58,11 @@
 				$result = $stmt->execute();
 			} catch(PDOException $err) {
 				$formValid = false;
-				$formError = "Add failed: " . $err;
+				if ($err->getCode() == "23000") {
+					$formError = "A user with that email already exists.";
+				} else {
+					$formError = "Add failed: " . $err;
+				}
 			}
 
 			// Initialize user session
@@ -147,6 +151,7 @@
 	</head>
 	<body>
 		<section>
+			<p class="info-display faliure"><?php echo $formError ?></p>
 			<div>
 				<h3>Log In</h3>
 				<p>If you have already registered your credentials and want to make changes to your information, enter them in the form below.</p>
@@ -176,7 +181,6 @@
 					<input type="submit" name="register_submit" id="register_submit" value="Submit">
 				</form>
 			</div>
-			<p class="info-display faliure"><?php echo $formError ?></p>
 		</section>
 	</body>
 </html>
