@@ -48,7 +48,7 @@
 			WHERE
 				student_email = ?
 			");
-		$stmt->bindParam(1, $email);
+		$stmt->bindValue(1, $email);
 		$result = $stmt->execute();
 	} catch(PDOException $err) {
 		$formError = "Select failed: " . $err;
@@ -95,66 +95,102 @@
 		if (isset($_POST['program']) && $validator->notEmpty($_POST['program'])) {
 			$program = $_POST['program'];
 		}
-		if (isset($_POST['portfolio-link']) && $validator->notEmpty($_POST['portfolio-link'])) {
-			$portfolio = $_POST['portfolio-link'];
-			if (!$validator->isURL($portfolio) || !$validator->isShorterThan($portfolio, 50)) {
-				$formValid = false;
-				$formError = "Please enter a valid link to your portfolio.";
+		if (isset($_POST['portfolio-link'])) {
+			if ($validator->notEmpty($_POST['portfolio-link'])) {
+				$portfolio = $_POST['portfolio-link'];
+				if (!$validator->isURL($portfolio) || !$validator->isShorterThan($portfolio, 50)) {
+					$formValid = false;
+					$formError = "Please enter a valid link to your portfolio.";
+				}
+			} else {
+				$portfolio = null;
 			}
 		}
-		if (isset($_POST['linkedin-link']) && $validator->notEmpty($_POST['linkedin-link'])) {
-			$linkedin = $_POST['linkedin-link'];
-			if (!$validator->isURL($linkedin) || !$validator->isShorterThan($portfolio, 50)) {
-				$formValid = false;
-				$formError = "Please enter a valid link to your LinkedIn account.";
+		if (isset($_POST['linkedin-link'])) {
+			if ($validator->notEmpty($_POST['linkedin-link'])) {
+				$linkedin = $_POST['linkedin-link'];
+				if (!$validator->isURL($linkedin) || !$validator->isShorterThan($portfolio, 50)) {
+					$formValid = false;
+					$formError = "Please enter a valid link to your LinkedIn account.";
+				}
+			} else {
+				$linkedin = null;
 			}
 		}
-		if (isset($_POST['secondary-link']) && $validator->notEmpty($_POST['secondary-link'])) {
-			$secondary = $_POST['secondary-link'];
-			if (!$validator->isURL($secondary) || !$validator->isShorterThan($secondary, 50)) {
-				$formValid = false;
-				$formError = "Please enter a valid link to your additional website.";
+		if (isset($_POST['secondary-link'])) {
+			if ($validator->notEmpty($_POST['secondary-link'])) {
+				$secondary = $_POST['secondary-link'];
+				if (!$validator->isURL($secondary) || !$validator->isShorterThan($secondary, 50)) {
+					$formValid = false;
+					$formError = "Please enter a valid link to your additional website.";
+				}
+			} else {
+				$secondary = null;
 			}
 		}
-		if (isset($_POST['hometown']) && $validator->notEmpty($_POST['hometown'])) {
-			$hometown = $_POST['hometown'];
-			if (!$validator->noSpecialChars($hometown) || !$validator->isShorterThan($hometown, 50)) {
-				$formValid = false;
-				$formError = "Please enter a valid hometown. Forbidden characters: &<>";
+		if (isset($_POST['hometown'])) {
+			if ($validator->notEmpty($_POST['hometown'])) {
+				$hometown = $_POST['hometown'];
+				if (!$validator->noSpecialChars($hometown) || !$validator->isShorterThan($hometown, 50)) {
+					$formValid = false;
+					$formError = "Please enter a valid hometown. Forbidden characters: &<>";
+				}
+			} else {
+				$hometown = null;
 			}
 		}
-		if (isset($_POST['career-goals']) && $validator->notEmpty($_POST['career-goals'])) {
-			$careerGoals = $_POST['career-goals'];
-			if (!$validator->noSpecialChars($careerGoals) || !$validator->isShorterThan($careerGoals, 255)) {
-				$formValid = false;
-				$formError = "Please enter a valid career goal. Forbidden characters: &<>";
+		if (isset($_POST['career-goals'])) {
+			if ($validator->notEmpty($_POST['career-goals'])) {
+				$careerGoals = $_POST['career-goals'];
+				if (!$validator->noSpecialChars($careerGoals) || !$validator->isShorterThan($careerGoals, 255)) {
+					$formValid = false;
+					$formError = "Please enter a valid career goal. Forbidden characters: &<>";
+				}
+			} else {
+				$careerGoals = null;
 			}
 		}
-		if (isset($_POST['hobbies']) && $validator->notEmpty($_POST['hobbies'])) {
-			$hobbies = $_POST['hobbies'];
-			if (!$validator->noSpecialChars($hobbies) || !$validator->isShorterThan($hobbies, 255)) {
-				$formValid = false;
-				$formError = "Please enter a valid hobby. Forbidden characters: &<>";
+		if (isset($_POST['hobbies'])) {
+			if ($validator->notEmpty($_POST['hobbies'])) {
+				$hobbies = $_POST['hobbies'];
+				if (!$validator->noSpecialChars($hobbies) || !$validator->isShorterThan($hobbies, 255)) {
+					$formValid = false;
+					$formError = "Please enter a valid hobby. Forbidden characters: &<>";
+				}
+			} else {
+				$hobbies = null;
 			}
 		}
-		if (isset($_POST['state']) && $validator->notEmpty($_POST['state'])) {
-			$state = $_POST['state'];
-		}
-		if (isset($_POST['emphasis']) && $validator->notEmpty($_POST['emphasis'])) {
-			$emphasis = $_POST['emphasis'];
-			if (!$validator->noSpecialChars($emphasis) || !$validator->isShorterThan($emphasis, 50)) {
-				$formValid = false;
-				$formError = "Please enter a valid emphasis. Forbidden characters: &<>";
+		if (isset($_POST['state'])) {
+			if ($validator->notEmpty($_POST['state'])) {
+				$state = $_POST['state'];
+			} else {
+				$state = null;
 			}
 		}
-		if (isset($_POST['public-email']) && $validator->notEmpty($_POST['public-email'])) {
-			$publicEmail = $_POST['public-email'];
-			if (!$validator->noSpecialChars($publicEmail) 
-					|| !$validator->isShorterThan($publicEmail, 50)
-					|| !$validator->isEmail($publicEmail)
-				) {
-				$formValid = false;
-				$formError = "Please enter a valid public email address.";
+		if (isset($_POST['emphasis'])) {
+			if ($validator->notEmpty($_POST['emphasis'])) {
+				$emphasis = $_POST['emphasis'];
+				if (!$validator->noSpecialChars($emphasis) || !$validator->isShorterThan($emphasis, 50)) {
+					$formValid = false;
+					$formError = "Please enter a valid emphasis. Forbidden characters: &<>";
+				}
+			} else {
+				$emphasis = null;
+			}
+		}
+		if (isset($_POST['public-email'])) {
+			if ($validator->notEmpty($_POST['public-email'])) {
+				$publicEmail = $_POST['public-email'];
+				if (!$validator->noSpecialChars($publicEmail) 
+						|| !$validator->isShorterThan($publicEmail, 50)
+						|| !$validator->isEmail($publicEmail)
+					) {
+					$formValid = false;
+					$formError = "Please enter a valid public email address.";
+				}
+			} else {
+				$publicEmail = null;
 			}
 		}
 
@@ -180,19 +216,19 @@
 					WHERE
 						student_email = ?
 				");
-				$stmt->bindParam(1, $firstName);
-				$stmt->bindParam(2, $lastName);
-				$stmt->bindParam(3, $program);
-				$stmt->bindParam(4, $portfolio);
-				$stmt->bindParam(5, $linkedin);
-				$stmt->bindParam(6, $secondary);
-				$stmt->bindParam(7, $hometown);
-				$stmt->bindParam(8, $careerGoals);
-				$stmt->bindParam(9, $hobbies);
-				$stmt->bindParam(10, $state);
-				$stmt->bindParam(11, $emphasis);
-				$stmt->bindParam(12, $publicEmail);
-				$stmt->bindParam(13, $email);
+				$stmt->bindValue(1, $firstName);
+				$stmt->bindValue(2, $lastName);
+				$stmt->bindValue(3, $program);
+				$stmt->bindValue(4, $portfolio);
+				$stmt->bindValue(5, $linkedin);
+				$stmt->bindValue(6, $secondary);
+				$stmt->bindValue(7, $hometown);
+				$stmt->bindValue(8, $careerGoals);
+				$stmt->bindValue(9, $hobbies);
+				$stmt->bindValue(10, $state);
+				$stmt->bindValue(11, $emphasis);
+				$stmt->bindValue(12, $publicEmail);
+				$stmt->bindValue(13, $email);
 				$result = $stmt->execute();
 
 				$updateSuccess = true;
@@ -261,6 +297,7 @@
 				</label>
 				<label>State
 					<select name="state" id="state">
+						<option value="">--</option>
 						<?php 
 							$states = array("IA", "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC",  
 										    "DE", "FL", "GA", "HI", "ID", "IL", "IN", "KS", "KY", "LA",  

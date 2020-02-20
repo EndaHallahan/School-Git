@@ -27,9 +27,11 @@ class v_ {
 	}
 
 	validator(input, validationSet) {
-		for (let i = 0; i < validationSet.length; i++) {
-			if (!validationSet[i](input)) {
-				return;
+		if (input.value.trim()) {
+			for (let i = 0; i < validationSet.length; i++) {
+				if (!validationSet[i](input)) {
+					return;
+				}
 			}
 		}
 		input.setCustomValidity("");
