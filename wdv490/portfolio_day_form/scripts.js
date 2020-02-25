@@ -11,6 +11,8 @@ class v_ {
 		});
 	}
 
+	// Assigns validation functions to an input element based on its data attributes.
+	// Only validations specified in the data attributes will be run.
 	validatorBuilder(input) {
 		let validations = input.dataset;
 		let validationSet = [];
@@ -26,10 +28,12 @@ class v_ {
 		}
 	}
 
+	// Runs through an element's array of validations constructed by validatorBuilder.
 	validator(input, validationSet) {
-		if (input.value.trim()) {
+		let content = input.value.trim();
+		if (content) {
 			for (let i = 0; i < validationSet.length; i++) {
-				if (!validationSet[i](input)) {
+				if (!validationSet[i](input, content)) {
 					return;
 				}
 			}
@@ -37,9 +41,8 @@ class v_ {
 		input.setCustomValidity("");
 	}
 
-	v_isEmail(input) {
-		let content = input.value.trim();
-		if (!/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(content)) {
+	v_isEmail(input, content) {
+		if (typeof content !== "string" || !/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(content)) {
 			input.setCustomValidity("Email must be a vaild email address. Ex: user@domain.net");
 			return false;
 		} else {
@@ -47,9 +50,8 @@ class v_ {
 		}
 	}
 
-	v_isDmacc(input) {
-		let content = input.value.trim();
-		if (!/.*@dmacc\.edu$/.test(content)) {
+	v_isDmacc(input, content) {
+		if (typeof content !== "string" || !/.*@dmacc\.edu$/.test(content)) {
 			input.setCustomValidity("Email must be a vaild DMACC email address.");
 			return false;
 		} else {
@@ -57,9 +59,8 @@ class v_ {
 		}
 	}
 
-	v_isUrl(input) {
-		let content = input.value.trim();
-		if (!/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/.test(content)) {
+	v_isUrl(input, content) {
+		if (typeof content !== "string" || !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/.test(content)) {
 			input.setCustomValidity("Input must be a vaild URL. Ex: https://example.com");
 			return false;
 		} else {
@@ -67,65 +68,43 @@ class v_ {
 		}
 	}
 
-	v_isLinkedin(input) {
-		let content = input.value.trim();
-		if (!/^https:\/\/www.linkedin.com*/.test(content)) {
-			input.setCustomValidity("Input must be a vaild LinkedIn URL, beginning with 'https://www.linkedin.com'.");
+	v_isLinkedin(input, content) {
+		if (typeof content !== "string" || !/^https:\/\/www\.linkedin\.com.*/.test(content)) {
+			input.setCustomValidity("Input must be a vaild LinkedIn URL beginning with 'https://www.linkedin.com'.");
 			return false;
 		} else {
 			return true;
 		}
 	}
 
-	v_isGithub(input) {
-		let content = input.value.trim();
-		if (!/^https:\/\/www.github.com*/.test(content)) {
-			input.setCustomValidity("Input must be a vaild LinkedIn URL, beginning with 'https://www.linkedin.com'.");
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	v_checkRegex(input) {
-		let content = input.value.trim();
-		let regex = new RegExp(input.dataset.v_regex);
-		if (!regex.test(content)) {
-			input.setCustomValidity("Input does not match requirements.");
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	v_lengthGt(input) {
-		let content = input.value.trim();
-		let min = parseInt(input.dataset.v_lengthGt);
+	v_lengthGT(input, content) {
+		let min = parseInt(input.dataset.v_lengthGT);
 		if (!isNaN(min)) {
-			if (content.length <= min) {
+			if (typeof content !== "string" || content.length <= min) {
 				input.setCustomValidity(`Input must be longer than ${min} characters.`);
 				return false;
 			} else {
 				return true;
 			}
 		} else {
-			console.error("Validation error: Minimum is not a number\n" + input)
+			input.setCustomValidity("An error has occurred. Please check the console for details.");
+			throw new Error("Validation error: Minimum is not a number\n" + input);
 			return false;
 		}
 	}
 
-	v_lengthLt(input) {
-		let content = input.value.trim();
-		let max = parseInt(input.dataset.v_lengthLt);
+	v_lengthLT(input, content) {
+		let max = parseInt(input.dataset.v_lengthLT);
 		if (!isNaN(max)) {
-			if (content.length >= max) {
+			if (typeof content !== "string" || content.length >= max) {
 				input.setCustomValidity(`Input must be shorter than ${max} characters.`);
 				return false;
 			} else {
 				return true;
 			}
 		} else {
-			console.error("Validation error: Maximum is not a number\n" + input)
+			input.setCustomValidity("An error has occurred. Please check the console for details.");
+			throw new Error("Validation error: Maximum is not a number\n" + input);
 			return false;
 		}
 	}
