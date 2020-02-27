@@ -38,10 +38,7 @@ label[data-v_char-counter] {
 	position: relative;
 }
 
-label[data-v_char-counter]:focus-within::after { 
-	content: attr(data-v_char-counter);
-	font-size: 1rem;
-	color: slategray;
+label[data-v_char-counter]:focus-within::after {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -59,7 +56,7 @@ label[data-v_char-counter]:focus-within::after {
 }
 
 .info-display.faliure:not(:empty) {
-	background-color: darkred;
+	background-color: #bb0000;
 }
 
 .info-display.success:not(:empty) {

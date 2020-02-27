@@ -246,22 +246,23 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Student Information Form</title>
+		<script src="v_.js"></script>
+		<link rel="stylesheet" href="v_ui.css" type="text/css">
 		<link rel="stylesheet" href="style.css" type="text/css">
-		<script src="scripts.js"></script>
 	</head>
 	<body>
 		<section>
 			<a href="logout.php">Log Out</a>
 			<p class="info-display <?php echo $updateSuccess ? "success" : "faliure" ?>"><?php echo $formError ?><?php echo $updateSuccess ? "Your information has been updated." : "" ?></p>
-			<form name="info_form" method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-				<label class="required">First Name
-					<input type="text" name="first-name" id="first-name" value="<?php echo $firstName ?>" required data-v_length-lt="50">
+			<form name="info_form" data-v_form method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+				<label class="required" data-v_error-output>First Name
+					<input type="text" name="first-name" id="first-name" value="<?php echo $firstName ?>" required data-v_length-less-than="50">
 				</label>
-				<label class="required">Last Name
-					<input type="text" name="last-name" id="last-name" value="<?php echo $lastName ?>" required data-v_length-lt="50">
+				<label class="required" data-v_error-output>Last Name
+					<input type="text" name="last-name" id="last-name" value="<?php echo $lastName ?>" required data-v_length-less-than="50">
 				</label>
 
-				<label class="required">Program
+				<label class="required" data-v_error-output>Program
 					<select name="program" id="program" required>
 						<option value="">--Select a Program--</option>
 						<option value="graphic-design" <?php if ($program == "graphic-design") {echo "selected";} ?> >Graphic Design</option>
@@ -271,29 +272,29 @@
 						<option value="web-dev" <?php if ($program == "web-dev") {echo "selected";} ?> >Web Development</option>
 					</select>
 				</label>
-				<label>Area of emphasis, or secondary program
-					<input type="text" name="emphasis" id="emphasis" value="<?php echo $emphasis ?>" data-v_length-lt="50">
+				<label data-v_error-output>Area of emphasis, or secondary program
+					<input type="text" name="emphasis" id="emphasis" value="<?php echo $emphasis ?>" data-v_length-less-than="50">
 				</label>
 
 				<label>DMACC Email
 					<input type="email" name="email" id="email" disabled value="<?php echo $email ?>">
 				</label>
-				<label>Public email (will be displayed publically on the website)
-					<input type="email" name="public-email" id="public-email" value="<?php echo $publicEmail ?>" data-v_length-lt="50" data-v_isEmail>
+				<label data-v_error-output>Public email (will be displayed publically on the website)
+					<input type="email" name="public-email" id="public-email" value="<?php echo $publicEmail ?>" data-v_length-less-than="50" data-v_is-email>
 				</label>
 
-				<label>Portfolio Website
-					<input type="text" name="portfolio-link" id="portfolio-link" value="<?php echo $portfolio ?>" data-v_length-lt="50" data-v_is-url>
+				<label data-v_error-output>Portfolio Website
+					<input type="text" name="portfolio-link" id="portfolio-link" value="<?php echo $portfolio ?>" data-v_length-less-than="50" data-v_is-url>
 				</label>
-				<label>LinkedIn
-					<input type="text" name="linkedin-link" id="linkedin-link" value="<?php echo $linkedin ?>" data-v_length-lt="50" data-v_is-url data-v_is-linkedin>
+				<label data-v_error-output>LinkedIn
+					<input type="text" name="linkedin-link" id="linkedin-link" value="<?php echo $linkedin ?>" data-v_length-less-than="50" data-v_is-url-with-domain="www.linkedin.com">
 				</label>
-				<label>Additional Website
-					<input type="text" name="secondary-link" id="secondary-link" value="<?php echo $secondary ?>" data-v_length-lt="50" data-v_is-url>
+				<label data-v_error-output>Additional Website
+					<input type="text" name="secondary-link" id="secondary-link" value="<?php echo $secondary ?>" data-v_length-less-than="50" data-v_is-url>
 				</label>
 
-				<label>Hometown
-					<input type="text" name="hometown" id="hometown" value="<?php echo $hometown ?>" data-v_length-lt="50">
+				<label data-v_error-output>Hometown
+					<input type="text" name="hometown" id="hometown" value="<?php echo $hometown ?>" data-v_length-less-than="50">
 				</label>
 				<label>State
 					<select name="state" id="state">
