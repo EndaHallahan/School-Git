@@ -150,7 +150,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Registration</title>
 		<script src="v_.js"></script>
-		<link rel="stylesheet" href="v_ui.css" type="text/css">
 		<link rel="stylesheet" href="style.css" type="text/css">
 	</head>
 	<body>

@@ -62,3 +62,67 @@ label[data-v_char-counter]:focus-within::after {
 .info-display.success:not(:empty) {
 	background-color: darkgreen;
 }
+
+/* V_ */
+
+label[data-v_char-counter]::after {
+	content: attr(data-v_char-counter);
+	font-size: 1rem;
+	color: slategray;
+}
+
+label[data-v_char-counter]:focus-within::after {
+	content: attr(data-v_char-counter);
+	font-size: 1rem;
+	color: slategray;
+}
+
+label[data-v_char-counter]:not(:focus-within)::after {
+	content: "";
+}
+
+label[data-v_error-output]::after {
+	content: attr(data-v_error-output);
+	font-size: 1rem;
+	color: #bb0000;
+}
+
+label[data-v_error-output]:not(:focus-within)::after {
+	content: attr(data-v_error-output);
+	font-size: 1rem;
+	color: #bb0000;
+}
+
+label[data-v_error-output]:focus-within::after {
+	content: "";
+}
+
+label[data-v_error-output]:not(:focus-within):not([data-v_error-output=""]) input, label[data-v_error-output]:not(:focus-within):not([data-v_error-output=""]) textarea {
+	outline: 2px solid #bb0000;
+	outline-offset: 1px;
+}
+
+input {
+	outline-offset: 1px;
+}
+
+input[data-v_password-strength="0"] {
+	outline: 2px solid #bb0000;
+}
+
+input[data-v_password-strength="1"] {
+	outline: 2px solid orange;
+}
+
+input[data-v_password-strength="2"] {
+	outline: 2px solid yellow;
+}
+
+input[data-v_password-strength="3"] {
+	outline: 2px solid yellowgreen;
+}
+
+input[data-v_password-strength="4"] {
+	outline: 2px solid green;
+}
+
