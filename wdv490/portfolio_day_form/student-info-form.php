@@ -278,7 +278,7 @@
 				<label>DMACC Email
 					<input type="email" name="email" id="email" disabled value="<?php echo $email ?>">
 				</label>
-				<label data-v_error-output>Public email (will be displayed publically on the website)
+				<label data-v_error-output>Contact email (will be displayed publicly on the website)
 					<input type="email" name="public-email" id="public-email" value="<?php echo $publicEmail ?>" data-v_length-less-than="50" data-v_is-email>
 				</label>
 
